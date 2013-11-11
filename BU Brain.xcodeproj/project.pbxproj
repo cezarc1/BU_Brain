@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		127B68FA07034354BA7D9730 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF104E35B9A4E8EA4C48DF1 /* libPods.a */; };
 		A93547711807ADF600705CF1 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A935476E1807ADF600705CF1 /* SSKeychain.m */; };
 		A93547721807ADF600705CF1 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = A93547701807ADF600705CF1 /* SSKeychainQuery.m */; };
 		A93547841807AE3D00705CF1 /* BUBrainClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A93547731807AE3D00705CF1 /* BUBrainClient.m */; };
@@ -18,6 +17,7 @@
 		A935478A1807AE3D00705CF1 /* BNumberControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A935477C1807AE3D00705CF1 /* BNumberControllerViewController.xib */; };
 		A935478B1807AE3D00705CF1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A935477D1807AE3D00705CF1 /* Images.xcassets */; };
 		A935478D1807AE3D00705CF1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A93547831807AE3D00705CF1 /* main.m */; };
+		A966B7B61830B140001E47BA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A966B7B51830B140001E47BA /* libPods.a */; };
 		F71E18AB182E00090059EFDD /* ClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71E18AA182E00090059EFDD /* ClassCell.xib */; };
 		F71E18AE182E18900059EFDD /* ClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F71E18AD182E18900059EFDD /* ClassInfo.m */; };
 		F71E18B0182E2E570059EFDD /* TermCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71E18AF182E2E570059EFDD /* TermCell.xib */; };
@@ -31,7 +31,7 @@
 		F78D4147181362210080D5EB /* mainMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78D4145181362210080D5EB /* mainMenuViewController.xib */; };
 		F78D414C181483260080D5EB /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D414B181483260080D5EB /* TermsViewController.m */; };
 		F78D4152181493F60080D5EB /* BuBrainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D4151181493F60080D5EB /* BuBrainCredentials.m */; };
-		F78D41621814B1450080D5EB /* ScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78D41601814B1450080D5EB /* ScheduleController.xib */; };
+		F7AE4DFF1830325C00526774 /* RedirectDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AE4DFE1830325C00526774 /* RedirectDetector.m */; };
 		F7C23690176A7F7C00F94740 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C2368F176A7F7C00F94740 /* Foundation.framework */; };
 		F7C23692176A7F7C00F94740 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C23691176A7F7C00F94740 /* CoreGraphics.framework */; };
 		F7C23694176A7F7C00F94740 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C23693176A7F7C00F94740 /* UIKit.framework */; };
@@ -69,6 +69,7 @@
 		A93547811807AE3D00705CF1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BuBrain/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		A93547821807AE3D00705CF1 /* BU Brain-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BU Brain-Prefix.pch"; path = "BuBrain/BU Brain-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		A93547831807AE3D00705CF1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BuBrain/main.m; sourceTree = SOURCE_ROOT; };
+		A966B7B51830B140001E47BA /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Release-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		AA5592877BE441A08C5D071D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ECF104E35B9A4E8EA4C48DF1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71E18AA182E00090059EFDD /* ClassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassCell.xib; sourceTree = SOURCE_ROOT; };
@@ -91,7 +92,8 @@
 		F78D414B181483260080D5EB /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = SOURCE_ROOT; };
 		F78D4150181493F60080D5EB /* BuBrainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuBrainCredentials.h; sourceTree = "<group>"; };
 		F78D4151181493F60080D5EB /* BuBrainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuBrainCredentials.m; sourceTree = "<group>"; };
-		F78D41601814B1450080D5EB /* ScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleController.xib; sourceTree = SOURCE_ROOT; };
+		F7AE4DFD1830325C00526774 /* RedirectDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedirectDetector.h; sourceTree = "<group>"; };
+		F7AE4DFE1830325C00526774 /* RedirectDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedirectDetector.m; sourceTree = "<group>"; };
 		F7C2368C176A7F7C00F94740 /* BU Brain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BU Brain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7C2368F176A7F7C00F94740 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F7C23691176A7F7C00F94740 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -105,11 +107,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A966B7B61830B140001E47BA /* libPods.a in Frameworks */,
 				F77E2D7D176EA1D7007A5678 /* Security.framework in Frameworks */,
 				F7C23692176A7F7C00F94740 /* CoreGraphics.framework in Frameworks */,
 				F7C23694176A7F7C00F94740 /* UIKit.framework in Frameworks */,
 				F7C23690176A7F7C00F94740 /* Foundation.framework in Frameworks */,
-				127B68FA07034354BA7D9730 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +144,6 @@
 				A935477C1807AE3D00705CF1 /* BNumberControllerViewController.xib */,
 				F71E18B5182E41B50059EFDD /* SettingsViewController.xib */,
 				F71E18AA182E00090059EFDD /* ClassCell.xib */,
-				F78D41601814B1450080D5EB /* ScheduleController.xib */,
 				F7445DCC182DBFE3007316C6 /* ScheduleTableViewController.xib */,
 				F78D4145181362210080D5EB /* mainMenuViewController.xib */,
 			);
@@ -154,6 +155,8 @@
 			children = (
 				A93547731807AE3D00705CF1 /* BUBrainClient.m */,
 				A93547751807AE3D00705CF1 /* BUBrainClient.h */,
+				F7AE4DFD1830325C00526774 /* RedirectDetector.h */,
+				F7AE4DFE1830325C00526774 /* RedirectDetector.m */,
 			);
 			name = BuBrainClient;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 		F7C2368E176A7F7C00F94740 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A966B7B51830B140001E47BA /* libPods.a */,
 				F77E2D7C176EA1D7007A5678 /* Security.framework */,
 				F7C2368F176A7F7C00F94740 /* Foundation.framework */,
 				F7C23691176A7F7C00F94740 /* CoreGraphics.framework */,
@@ -212,6 +216,8 @@
 				F7445DCA182DBFE3007316C6 /* ScheduleTableViewController.h */,
 				F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */,
 				F78D4143181362210080D5EB /* mainMenuViewController.h */,
+				F71E18B1182E30EA0059EFDD /* ClassCell.m */,
+				F7445DC7182DB9EC007316C6 /* ClassCell.h */,
 				F78D4144181362210080D5EB /* mainMenuViewController.m */,
 				F71E18AC182E18900059EFDD /* ClassInfo.h */,
 				F71E18AD182E18900059EFDD /* ClassInfo.m */,
@@ -228,8 +234,6 @@
 				A93547811807AE3D00705CF1 /* AppDelegate.h */,
 				A93547791807AE3D00705CF1 /* AppDelegate.m */,
 				F7C23696176A7F7C00F94740 /* Supporting Files */,
-				F71E18B1182E30EA0059EFDD /* ClassCell.m */,
-				F7445DC7182DB9EC007316C6 /* ClassCell.h */,
 			);
 			name = BuBrain;
 			path = BuBrainTest;
@@ -332,7 +336,6 @@
 				A935478A1807AE3D00705CF1 /* BNumberControllerViewController.xib in Resources */,
 				F78D4147181362210080D5EB /* mainMenuViewController.xib in Resources */,
 				F71E18B0182E2E570059EFDD /* TermCell.xib in Resources */,
-				F78D41621814B1450080D5EB /* ScheduleController.xib in Resources */,
 				F71E18AB182E00090059EFDD /* ClassCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +398,7 @@
 				A93547871807AE3D00705CF1 /* AppDelegate.m in Sources */,
 				F7445DCD182DBFE3007316C6 /* ScheduleTableViewController.m in Sources */,
 				A93547711807ADF600705CF1 /* SSKeychain.m in Sources */,
+				F7AE4DFF1830325C00526774 /* RedirectDetector.m in Sources */,
 				A935478D1807AE3D00705CF1 /* main.m in Sources */,
 				F71E18B2182E30EA0059EFDD /* ClassCell.m in Sources */,
 				F71E18B6182E41B50059EFDD /* SettingsViewController.m in Sources */,

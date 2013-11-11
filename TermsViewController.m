@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Available Terms";
+    self.title = @"Terms";
     
     UINib *cellNIB = [UINib nibWithNibName:@"TermCell" bundle:nil];
     if (cellNIB){
@@ -70,7 +70,7 @@
     
     //Must get credentials first
     BuBrainCredentials *cred = [BuBrainCredentials sharedInstance];
-    NSArray * credentials =[cred getCredentials];
+    NSArray *credentials =[cred getCredentials];
     if(credentials){
         [self reloadTermsWithUser:credentials[0] andPassword:credentials[1]];
     
@@ -155,7 +155,9 @@
     }
    
     OGElement *ele = _availableTerms[indexPath.row+1];
+    cell.textLabel.textColor = UIColorFromRGB(0x006221);
     cell.textLabel.text =  ele.text;
+    cell.textLabel.font = [UIFont systemFontOfSize:18.0];
     
     return cell;
 }
@@ -180,8 +182,25 @@
     
     ScheduleTableViewController *cc =[[ScheduleTableViewController alloc] initWithTerm:value andTitle:ele.text];
     [self.navigationController pushViewController:cc animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
+    CGFloat result;
+    result = 70.0f;
+    return result;
+}
+
+
+//to hide empty cells
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+//to hide empty cells
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
+
 }
 /*
 // Override to support conditional editing of the table view.

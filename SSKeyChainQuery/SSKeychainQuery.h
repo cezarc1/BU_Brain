@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
+#ifdef __IPHONE_7_0
+#define SSKEYCHAIN_SYNCHRONIZABLE_AVAILABLE 1
+#endif
+
+#ifdef __MAC_10_9
+#define SSKEYCHAIN_SYNCHRONIZABLE_AVAILABLE 1
+#endif
+
 /**
  Simple interface for querying or modifying keychain items.
  */
@@ -28,14 +36,19 @@
 @property (nonatomic, copy) NSString *accessGroup;
 #endif
 
+#ifdef SSKEYCHAIN_SYNCHRONIZABLE_AVAILABLE
+/** kSecAttrSynchronizable */
+@property (nonatomic, getter = isSynchronizable) BOOL synchronizable;
+#endif
+
 /** Root storage for password information */
 @property (nonatomic, copy) NSData *passwordData;
 
 /**
- This property automatically transitions between an object and the value of 
+ This property automatically transitions between an object and the value of
  `passwordData` using NSKeyedArchiver and NSKeyedUnarchiver.
  */
-@property (nonatomic, copy) id<NSSecureCoding> passwordObject;
+@property (nonatomic, copy) id<NSCoding> passwordObject;
 
 /**
  Convenience accessor for setting and getting a password string. Passes through
@@ -60,7 +73,7 @@
  
  @return `YES` if saving was successful, `NO` otherwise.
  */
-- (BOOL)delete:(NSError **)error;
+- (BOOL)deleteItem:(NSError **)error;
 
 /**
  Fetch all keychain items that match the given account, service, and access

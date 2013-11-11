@@ -20,6 +20,9 @@
 @synthesize accessGroup = _accessGroup;
 #endif
 
+#ifdef SSKEYCHAIN_SYNCHRONIZABLE_AVAILABLE
+@synthesize synchronizable = _synchronizable;
+#endif
 
 #pragma mark - Public
 
@@ -32,7 +35,7 @@
 		return NO;
 	}
     
-    [self delete:nil];
+    [self deleteItem:nil];
     
     NSMutableDictionary *query = [self query];
     [query setObject:self.passwordData forKey:(__bridge id)kSecValueData];
@@ -55,7 +58,7 @@
 }
 
 
-- (BOOL)delete:(NSError *__autoreleasing *)error {
+- (BOOL)deleteItem:(NSError *__autoreleasing *)error {
     OSStatus status = SSKeychainErrorBadArguments;
     if (!self.service || !self.account) {
 		if (error) {
@@ -90,15 +93,15 @@
     NSMutableDictionary *query = [self query];
     [query setObject:@YES forKey:(__bridge id)kSecReturnAttributes];
     [query setObject:(__bridge id)kSecMatchLimitAll forKey:(__bridge id)kSecMatchLimit];
-	
+    
 	CFTypeRef result = NULL;
     status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
     if (status != errSecSuccess && error != NULL) {
 		*error = [[self class] errorWithCode:status];
 		return nil;
 	}
-
-    return (__bridge NSArray *)result;
+    
+    return (__bridge_transfer NSArray *)result;
 }
 
 
@@ -110,13 +113,13 @@
 		}
 		return NO;
 	}
-	
+    
 	CFTypeRef result = NULL;
 	NSMutableDictionary *query = [self query];
-    [query setObject:@YES forKey:(__bridge_transfer id)kSecReturnData];
+    [query setObject:@YES forKey:(__bridge id)kSecReturnData];
     [query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
     status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
-	
+    
 	if (status != errSecSuccess && error != NULL) {
 		*error = [[self class] errorWithCode:status];
 		return NO;
@@ -129,12 +132,12 @@
 
 #pragma mark - Accessors
 
-- (void)setPasswordObject:(id<NSSecureCoding>)object {
+- (void)setPasswordObject:(id<NSCoding>)object {
     self.passwordData = [NSKeyedArchiver archivedDataWithRootObject:object];
 }
 
 
-- (id<NSSecureCoding>)passwordObject {
+- (id<NSCoding>)passwordObject {
     if ([self.passwordData length]) {
         return [NSKeyedUnarchiver unarchiveObjectWithData:self.passwordData];
     }
@@ -177,6 +180,12 @@
 #endif
 #endif
     
+#ifdef SSKEYCHAIN_SYNCHRONIZABLE_AVAILABLE
+    if (self.isSynchronizable) {
+        [dictionary setObject:@YES forKey:(__bridge id)(kSecAttrSynchronizable)];
+    }
+#endif
+    
     return dictionary;
 }
 
@@ -185,47 +194,47 @@
     NSString *message = nil;
     switch (code) {
         case errSecSuccess: return nil;
-        case SSKeychainErrorBadArguments: message = @"Some of the arguments were invalid"; break;
+        case SSKeychainErrorBadArguments: message = NSLocalizedStringFromTable(@"SSKeychainErrorBadArguments", @"SSKeychain", nil); break;
             
 #if TARGET_OS_IPHONE
         case errSecUnimplemented: {
-			message = @"Function or operation not implemented";
+			message = NSLocalizedStringFromTable(@"errSecUnimplemented", @"SSKeychain", nil);
 			break;
 		}
         case errSecParam: {
-			message = @"One or more parameters passed to a function were not valid";
+			message = NSLocalizedStringFromTable(@"errSecParam", @"SSKeychain", nil);
 			break;
 		}
         case errSecAllocate: {
-			message = @"Failed to allocate memory";
+			message = NSLocalizedStringFromTable(@"errSecAllocate", @"SSKeychain", nil);
 			break;
 		}
         case errSecNotAvailable: {
-			message = @"No keychain is available. You may need to restart your computer";
+			message = NSLocalizedStringFromTable(@"errSecNotAvailable", @"SSKeychain", nil);
 			break;
 		}
         case errSecDuplicateItem: {
-			message = @"The specified item already exists in the keychain";
+			message = NSLocalizedStringFromTable(@"errSecDuplicateItem", @"SSKeychain", nil);
 			break;
 		}
         case errSecItemNotFound: {
-			message = @"The specified item could not be found in the keychain";
+			message = NSLocalizedStringFromTable(@"errSecItemNotFound", @"SSKeychain", nil);
 			break;
 		}
         case errSecInteractionNotAllowed: {
-			message = @"User interaction is not allowed";
+			message = NSLocalizedStringFromTable(@"errSecInteractionNotAllowed", @"SSKeychain", nil);
 			break;
 		}
         case errSecDecode: {
-			message = @"Unable to decode the provided data";
+			message = NSLocalizedStringFromTable(@"errSecDecode", @"SSKeychain", nil);
 			break;
 		}
         case errSecAuthFailed: {
-			message = @"The user name or passphrase you entered is not correct";
+			message = NSLocalizedStringFromTable(@"errSecAuthFailed", @"SSKeychain", nil);
 			break;
 		}
         default: {
-			message = @"Refer to SecBase.h for description";
+			message = NSLocalizedStringFromTable(@"errSecDefault", @"SSKeychain", nil);
 		}
 #else
         default:

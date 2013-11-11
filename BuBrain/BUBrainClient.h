@@ -11,8 +11,10 @@
 #import <AFNetworking.h>
 #import <ObjectiveGumbo.h>
 #import "BNumberControllerViewController.h"
+#import "RedirectDetector.h"
 
-@interface BUBrainClient : AFHTTPSessionManager
+
+@interface BUBrainClient : AFHTTPSessionManager 
 
 @property (nonatomic, weak) NSString * username;
 @property (nonatomic, weak) NSString * password;

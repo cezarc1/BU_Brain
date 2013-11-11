@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SettingsViewController ()
 
@@ -90,6 +91,7 @@
         default:
             cell.textLabel.text = @"Log Out";
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.textLabel.textColor = UIColorFromRGB(0x006221);
             break;
     }
     

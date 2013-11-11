@@ -240,6 +240,16 @@ static BOOL doesntHaveClasses;
     
 }
 
+//to hide empty cells
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+//to hide empty cells
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
+    
+}
 
 /*
 #pragma mark - Table view delegate

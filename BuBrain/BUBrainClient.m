@@ -16,8 +16,19 @@
     static BUBrainClient * _sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURL *baseUrl =  [NSURL URLWithString:@"https://ssb.cc.binghamton.edu/"];
-
+        
+        [RedirectDetector sharedClient];
+        NSURL *baseUrl = [[RedirectDetector sharedClient] baseURL];
+        if (!baseUrl){
+            NSString *storedDomain = [[NSUserDefaults standardUserDefaults] stringForKey:@"BU-Brain Sub Domain"];
+            if (!storedDomain) {
+                storedDomain = @"https://ssb.cc.binghamton.edu/";
+            }
+            baseUrl = [NSURL URLWithString:storedDomain];
+        }
+        
+        
+        NSLog(@"BU-Client baseURL: %@", baseUrl);
         
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         [config setHTTPAdditionalHeaders:@{ @"User-Agent" : @"BU Brain iOS 1.0"
@@ -36,12 +47,14 @@
         _sharedClient.username = nil;
         _sharedClient.password = nil;
         
-        //verify baseurel
 
     });
     return _sharedClient;
 }
 
+- (void) setTaskWillPerformHTTPSRedirectionBlock:(NSURLRequest *(^)(NSURLSession *, NSURLSessionTask *, NSURLResponse *, NSURLRequest *))block{
+    NSLog(@"Here");
+}
 
 
 -(BOOL) areCredentialsStored{
@@ -64,9 +77,10 @@
                                              completion:(void (^)(NSString * response, NSError *error) )completion {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.requestSerializer setValue:@"TESTID=set" forHTTPHeaderField:@"Cookie"]; //Need to do this to make sure I already don't have a valid token
-    NSURLSessionDataTask *task = [self POST:@"/banner//twbkwbis.P_ValLogin"
+    NSURLSessionDataTask *task = [self POST:@"/banner/twbkwbis.P_ValLogin"
                                   parameters:@{@"sid": user, @"PIN":password}
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                          NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
                                          if ([self isUserAuthenticatedfor:httpResponse]) {

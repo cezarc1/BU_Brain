@@ -10,6 +10,7 @@
 #import "BNumberControllerViewController.h"
 #import "TermsViewController.h"
 #import "SettingsViewController.h"
+#import "RedirectDetector.h"
 
 @interface mainMenuViewController : UITableViewController
 
