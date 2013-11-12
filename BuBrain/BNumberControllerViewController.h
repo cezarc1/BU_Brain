@@ -15,14 +15,16 @@
 #import "BUBrainClient.h"
 #import "UIProgressView+AFNetworking.h"
 
-@interface BNumberControllerViewController : UIViewController <CaptureCredentialsDelegate>
+@interface BNumberControllerViewController : UIViewController <CaptureCredentialsDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *BNumber;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) NSString* sid;
-@property (strong, nonatomic) NSString* pin;
-@property (strong, nonatomic) NSString* service;
-@property (strong, nonatomic) NSString* serviceNumber;
+@property (strong, nonatomic) NSString *sid;
+@property (strong, nonatomic) NSString *pin;
+@property (strong, nonatomic) NSString *service;
+@property (strong, nonatomic) NSString *serviceNumber;
+
+
 @property BOOL receivedBNumber;
 @property  BOOL didAuthenticate;
 @property BOOL userNameWasStored;

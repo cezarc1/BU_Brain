@@ -13,6 +13,9 @@
     bool _attemptedTogetCredentails;
 }
 
+@property (strong, nonatomic) NSURLSessionDataTask *currentTask;
+@property (strong, nonatomic) UIAlertView *alertView;
+
 @end
 
 @implementation BNumberControllerViewController
@@ -67,6 +70,14 @@
     
 }
 
+-(void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.currentTask cancel];
+    [self.alertView dismissWithClickedButtonIndex:0 animated:NO];
+    self.currentTask = nil;
+    self.alertView = nil;
+}
+
 
 -(void)didCaptureValidCredentialswithUser: (NSString*) userID andPassword: (NSString*) password{
     
@@ -84,7 +95,7 @@
 -(void) prepareForAuthentication{
     _receivedBNumber = NO;
     _didAuthenticate = NO;
-    _BNumber.text = @"Retrieving...";
+    //_BNumber.text = @"Retrieving...";
     [self initializeAndStartActivityView];
     [self requestBNumber];
 }
@@ -92,11 +103,11 @@
     
     
     BUBrainClient *request = [BUBrainClient sharedClient];
-    [request requestAuthenticationWithUser: _sid
+     self.currentTask = [request requestAuthenticationWithUser: _sid
                                andPassword: _pin
                                 completion:^(NSString * response, NSError *error){
                                     if (!error) {
-                                        [request requestBNumberWithCompletion:^(NSString *bNumber, NSError *error) {
+                                        self.currentTask = [request requestBNumberWithCompletion:^(NSString *bNumber, NSError *error) {
                                             if (!error) {
                                                 [self BNumberRetrieved:bNumber];
                                             }
@@ -135,8 +146,18 @@
 }
 -(void) errorOccured: (NSError *) error{
     NSLog(@"Error: %@", error);
+    [self.activityIndicator stopAnimating];
+    if ([error code] != -999) {//cancel
+        self.alertView = [[UIAlertView alloc] initWithTitle:@"Could not log in!"
+                                                    message:[error domain]
+                                                   delegate:self cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+        [self.alertView show];
+    }
     
-    _BNumber.text = [error domain];
+    NSLog(@"%@", error);
+    
+    //_BNumber.text = [error domain];
     if( _userNameWasStored && [error code] == 1){
         _userNameWasStored = NO;
         [SSKeychain deletePasswordForService:_service account:_sid];
@@ -155,6 +176,12 @@
     _userNameWasStored = NO;
     _receivedBNumber = NO;
     [[BUBrainClient sharedClient] resetCredentials];
+}
+
+#pragma mark - UiAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
