@@ -4,6 +4,7 @@
 A simple app that interfaces with Binghamton University's BU Brain portal. 
 
 Currently has two features:
+
 1. It gets the users B-Number
 2. Gets users schedule for any term
 
