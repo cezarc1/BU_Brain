@@ -29,4 +29,4 @@ SPEC CHECKSUMS:
   AFNetworking: a6f11ac4ac087303e6ff87adc1ba57b0dac20ef8
   ObjectiveGumbo: 76576087e8b3d6e00f4fd4dee7b13e11b1da68e9
 
-COCOAPODS: 0.25.0
+COCOAPODS: 0.27.1
