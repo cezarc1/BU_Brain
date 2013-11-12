@@ -7,8 +7,10 @@ Currently has two features:
 1. It gets the users B-Number
 2. Gets users schedule for any term
 
- <img src="http://i.imgur.com/v7rK8UG.png"  height="350">
  <img src="http://i.imgur.com/Evb3D8x.png"  height="350">
+ <img src="http://i.imgur.com/zdlvWSx.png"  height="350">
+ <img src="http://i.imgur.com/v7rK8UG.png"  height="350">
+
  
 ## Running
 
