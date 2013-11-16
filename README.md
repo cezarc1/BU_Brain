@@ -3,6 +3,8 @@
 
 A simple app that interfaces with Binghamton University's BU Brain portal. 
 
+The App is currently in progress and unreleased.
+
 Currently has two features:
 
 1. It gets the users B-Number
