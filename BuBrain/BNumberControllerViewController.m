@@ -124,10 +124,7 @@
 }
 
 -(void) initializeAndStartActivityView{
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    self.activityIndicator.center = CGPointMake(screenWidth / 2, screenHeight / 2);
+    self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
     self.activityIndicator.color = UIColorFromRGB(0x009933);
     [self.view addSubview:self.activityIndicator];
     [self.activityIndicator startAnimating];

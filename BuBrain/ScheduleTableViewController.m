@@ -184,7 +184,7 @@ static BOOL doesntHaveClasses;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat result;
-    result = 120.0f;
+    result = 130.0f;
     return result;
 }
 
