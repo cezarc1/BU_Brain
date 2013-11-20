@@ -66,7 +66,21 @@
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-    // Do any additional setup after loading the view from its nib.
+    
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:[UIDevice currentDevice]];
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (orientation == UIDeviceOrientationLandscapeRight  || orientation == UIDeviceOrientationLandscapeLeft) {
+        self.disclaimer.hidden = YES;
+    }
 }
 
 -(void)dismissKeyboard {
@@ -77,6 +91,25 @@
 -(void)storeCredentialsforUser: (NSString*) user
                    andPassword: (NSString*) password {
 
+}
+
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    switch(device.orientation)
+    {
+        case UIDeviceOrientationPortrait:
+            self.disclaimer.hidden = NO;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            self.disclaimer.hidden = YES;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            self.disclaimer.hidden = YES;
+            break;
+        default:
+            break;
+    };
 }
 
 - (void)didReceiveMemoryWarning

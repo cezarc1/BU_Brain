@@ -22,6 +22,7 @@
 @interface CaptureCredentialsController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userId;
 @property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextView *disclaimer;
 @property (weak)  id<CaptureCredentialsDelegate> delegate;
 
 @end
