@@ -28,11 +28,13 @@ static BOOL doesntHaveClasses;
         doesntHaveClasses = NO;
         self.term = term;
         self.title = title;
-        self.classes = nil;
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
         self.tableView.scrollEnabled = NO;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.currentTask = nil;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                                               target:self
+                                                                                               action:@selector(showGridView)];
+        NSLog(@"Current Term: %@", term);
         
     }
     return self;
@@ -244,6 +246,13 @@ static BOOL doesntHaveClasses;
 
    
     }
+    
+}
+
+- (void)showGridView{
+    
+    GridScheduleViewController *gsvc =[[GridScheduleViewController alloc] initWithTerm:_term andTitle:self.title];
+    [self presentViewController:gsvc animated:YES completion:nil];
     
 }
 

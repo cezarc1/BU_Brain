@@ -12,11 +12,12 @@
 #import "BuBrainCredentials.h"
 #import "BUBrainClient.h"
 #import "ClassInfo.h"
+#import "GridScheduleViewController.h"
 
 
 @interface ScheduleTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSString *term;
+@property (strong, nonatomic) NSString *term;// eg. 201420
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSMutableArray *classes;
 @property (strong, nonatomic) NSURLSessionDataTask *currentTask;

@@ -36,7 +36,7 @@ static NSString* originalURL = @"https://buonline.binghamton.edu";
              
              NSLog(@"Resolved BuBrain URL: %@", operation.response.URL);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Might not have Resolved BuBrain URL: %@", error);
+        NSLog(@"Possible Error: Might not have Resolved BuBrain URL: %@", error);
     }];
     
 }

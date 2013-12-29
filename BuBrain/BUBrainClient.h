@@ -37,7 +37,7 @@
 
 -(NSURLSessionDataTask *) scheduleForSemester:(NSString *) semester andCompletion:(void (^)(NSString* classes, NSError *error) )completion;
 
-
+-(NSURLSessionDataTask *) scheduleGridForSemester:(NSString *) semester andCompletion:(void (^)(NSString* responseHTML, NSError *error) ) completion;
 
 
 @end

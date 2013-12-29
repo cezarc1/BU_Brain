@@ -179,7 +179,7 @@
                                        NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
                                        if([self isUserAuthenticatedfor:httpResponse]){
                                            NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
-                                           NSArray *terms = [self parseDocumentForSemesterwithString:responseString];
+                                           NSArray *terms = [self parseDocumentForSemesterIDwithString:responseString];
                                            if (!terms) {
                                                NSError * error = [NSError errorWithDomain:@"Could not Parse Terms" code:4 userInfo:nil];
                                                completion(nil,error);
@@ -197,7 +197,7 @@
 }
 -(NSURLSessionDataTask *) scheduleForSemester:(NSString *) semester andCompletion:(void (^)(NSString* classes, NSError *error) )completion{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    NSURLSessionDataTask *task =[ self POST:@"/banner/bwskfshd.P_CrseSchdDetl"
+    NSURLSessionDataTask *task = [self POST:@"/banner/bwskfshd.P_CrseSchdDetl"
                                  parameters:@{@"term_in": semester}
                                     success:^(NSURLSessionDataTask *task, id responseObject) {
                                         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -223,13 +223,46 @@
 }
 
 
--(NSArray*) parseDocumentForSemesterwithString: (NSString*) response{
+-(NSArray*) parseDocumentForSemesterIDwithString: (NSString*) response{
     
     OGNode *data = [ObjectiveGumbo parseDocumentWithString: response];
     OGElement *mainLabel = [[data elementsWithID:@"term_id"] objectAtIndex:0];
     if(!mainLabel) return NULL;
     NSArray *terms = mainLabel.children;
     return terms;
+}
+
+-(NSURLSessionDataTask *) scheduleGridForSemester:(NSString *) semester andCompletion:(void (^)(NSString* responseHTML, NSError *error) ) completion{
+    NSLog(@"%@", semester);
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSURLSessionDataTask *task = [self GET:@"/banner/bwskfshd.P_CrseSchd"
+                                parameters:@{@"start_date_in": semester}
+                                   success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
+                                       if([self isUserAuthenticatedfor:httpResponse]){
+                                           NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
+                                           completion([self cleanGridSemester:responseString], nil);
+                                       }
+                                       else{
+                                           NSError * error = [NSError errorWithDomain:@"Not Authorized" code:2 userInfo:nil];
+                                           completion(nil, error);
+                                       }
+                                   }
+                                   failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSLog(@"header: %@", [[task originalRequest]allHTTPHeaderFields]);
+                                       completion(nil, error);
+                                   }];
+    return task;
+    
+}
+
+-(NSString *)cleanGridSemester:(NSString *) responseHTML{
+    OGNode *data = [ObjectiveGumbo parseDocumentWithString: responseHTML];
+    OGElement *mainLabel = [[data elementsWithClass:@"pagebodydiv"] objectAtIndex:0];
+    return [NSString stringWithFormat:@"<link type='text/css' href='/css/web_defaultapp.css' rel='stylesheet'></link> %@",
+                                    [mainLabel html]];
 }
 
 

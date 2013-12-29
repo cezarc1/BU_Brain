@@ -30,12 +30,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self checkRedirect];
     
     UINib *cellNIB = [UINib nibWithNibName:@"TermCell" bundle:nil];
     if (cellNIB){
         [self.tableView registerNib:cellNIB forCellReuseIdentifier:REUSE_IDENTIFIER];
     }
-    [self checkRedirect];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

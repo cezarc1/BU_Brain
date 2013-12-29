@@ -24,6 +24,8 @@
 		F71E18B2182E30EA0059EFDD /* ClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F71E18B1182E30EA0059EFDD /* ClassCell.m */; };
 		F71E18B6182E41B50059EFDD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71E18B4182E41B50059EFDD /* SettingsViewController.m */; };
 		F71E18B7182E41B50059EFDD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71E18B5182E41B50059EFDD /* SettingsViewController.xib */; };
+		F7374C4D186FEA5600881136 /* GridScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7374C4B186FEA5600881136 /* GridScheduleViewController.m */; };
+		F7374C4E186FEA5600881136 /* GridScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */; };
 		F7445DCD182DBFE3007316C6 /* ScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */; };
 		F7445DCE182DBFE3007316C6 /* ScheduleTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7445DCC182DBFE3007316C6 /* ScheduleTableViewController.xib */; };
 		F77E2D7D176EA1D7007A5678 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77E2D7C176EA1D7007A5678 /* Security.framework */; };
@@ -80,6 +82,9 @@
 		F71E18B3182E41B50059EFDD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = BuBrain/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		F71E18B4182E41B50059EFDD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = BuBrain/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
 		F71E18B5182E41B50059EFDD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = BuBrain/UI/SettingsViewController.xib; sourceTree = SOURCE_ROOT; };
+		F7374C4A186FEA5600881136 /* GridScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScheduleViewController.h; sourceTree = SOURCE_ROOT; };
+		F7374C4B186FEA5600881136 /* GridScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScheduleViewController.m; sourceTree = SOURCE_ROOT; };
+		F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GridScheduleViewController.xib; sourceTree = SOURCE_ROOT; };
 		F7445DC7182DB9EC007316C6 /* ClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassCell.h; path = BuBrain/ClassCell.h; sourceTree = SOURCE_ROOT; };
 		F7445DCA182DBFE3007316C6 /* ScheduleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScheduleTableViewController.h; path = BuBrain/ScheduleTableViewController.h; sourceTree = SOURCE_ROOT; };
 		F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScheduleTableViewController.m; path = BuBrain/ScheduleTableViewController.m; sourceTree = SOURCE_ROOT; };
@@ -139,22 +144,35 @@
 		F71E18B8182E760B0059EFDD /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F7374C4F1870169300881136 /* Web */,
+				F7445DC7182DB9EC007316C6 /* ClassCell.h */,
+				F71E18B1182E30EA0059EFDD /* ClassCell.m */,
+				F71E18AC182E18900059EFDD /* ClassInfo.h */,
+				F71E18AD182E18900059EFDD /* ClassInfo.m */,
 				F71E18AF182E2E570059EFDD /* TermCell.xib */,
 				A935477B1807AE3D00705CF1 /* CaptureCredentialsController.xib */,
 				A935477C1807AE3D00705CF1 /* BNumberControllerViewController.xib */,
 				F71E18B5182E41B50059EFDD /* SettingsViewController.xib */,
 				F71E18AA182E00090059EFDD /* ClassCell.xib */,
 				F7445DCC182DBFE3007316C6 /* ScheduleTableViewController.xib */,
+				F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */,
 				F78D4145181362210080D5EB /* mainMenuViewController.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
 		};
+		F7374C4F1870169300881136 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Web;
+			sourceTree = "<group>";
+		};
 		F78D4134181357D30080D5EB /* BuBrainClient */ = {
 			isa = PBXGroup;
 			children = (
-				A93547731807AE3D00705CF1 /* BUBrainClient.m */,
 				A93547751807AE3D00705CF1 /* BUBrainClient.h */,
+				A93547731807AE3D00705CF1 /* BUBrainClient.m */,
 				F7AE4DFD1830325C00526774 /* RedirectDetector.h */,
 				F7AE4DFE1830325C00526774 /* RedirectDetector.m */,
 			);
@@ -215,16 +233,14 @@
 				F71E18B8182E760B0059EFDD /* UI */,
 				F7445DCA182DBFE3007316C6 /* ScheduleTableViewController.h */,
 				F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */,
+				F7374C4A186FEA5600881136 /* GridScheduleViewController.h */,
+				F7374C4B186FEA5600881136 /* GridScheduleViewController.m */,
 				F78D4143181362210080D5EB /* mainMenuViewController.h */,
-				F71E18B1182E30EA0059EFDD /* ClassCell.m */,
-				F7445DC7182DB9EC007316C6 /* ClassCell.h */,
 				F78D4144181362210080D5EB /* mainMenuViewController.m */,
-				F71E18AC182E18900059EFDD /* ClassInfo.h */,
-				F71E18AD182E18900059EFDD /* ClassInfo.m */,
 				F71E18B3182E41B50059EFDD /* SettingsViewController.h */,
 				F71E18B4182E41B50059EFDD /* SettingsViewController.m */,
-				A93547741807AE3D00705CF1 /* BNumberControllerViewController.m */,
 				A93547761807AE3D00705CF1 /* BNumberControllerViewController.h */,
+				A93547741807AE3D00705CF1 /* BNumberControllerViewController.m */,
 				A93547771807AE3D00705CF1 /* CaptureCredentialsController.h */,
 				A935477A1807AE3D00705CF1 /* CaptureCredentialsController.m */,
 				F78D414A181483260080D5EB /* TermsViewController.h */,
@@ -336,6 +352,7 @@
 				A935478A1807AE3D00705CF1 /* BNumberControllerViewController.xib in Resources */,
 				F78D4147181362210080D5EB /* mainMenuViewController.xib in Resources */,
 				F71E18B0182E2E570059EFDD /* TermCell.xib in Resources */,
+				F7374C4E186FEA5600881136 /* GridScheduleViewController.xib in Resources */,
 				F71E18AB182E00090059EFDD /* ClassCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +413,7 @@
 				A93547721807ADF600705CF1 /* SSKeychainQuery.m in Sources */,
 				F78D4146181362210080D5EB /* mainMenuViewController.m in Sources */,
 				A93547871807AE3D00705CF1 /* AppDelegate.m in Sources */,
+				F7374C4D186FEA5600881136 /* GridScheduleViewController.m in Sources */,
 				F7445DCD182DBFE3007316C6 /* ScheduleTableViewController.m in Sources */,
 				A93547711807ADF600705CF1 /* SSKeychain.m in Sources */,
 				F7AE4DFF1830325C00526774 /* RedirectDetector.m in Sources */,
