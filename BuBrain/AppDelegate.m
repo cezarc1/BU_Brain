@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:0.8]
 
 @implementation AppDelegate
 
@@ -16,9 +16,19 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     mainMenuViewController *main = [[mainMenuViewController alloc]init];
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:main];
+    
+    UINavigationController *navControl = [[UINavigationController alloc]initWithRootViewController:main];
+
+
+    navControl.navigationBar.translucent = YES;
+    //navControl.navigationBar.barTintColor = UIColorFromRGB(0x009933);
+    navControl.navigationBar.barTintColor =  [UIColor colorWithRed:0.0f/255.0f green:163.0f/255.0f blue:35.0f/255.0f alpha:0.79f];
+    [navControl.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    //navControl.view.backgroundColor = [UIColor clearColor];
+    
+    self.window.rootViewController = navControl;
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.tintColor = UIColorFromRGB(0x009933);
+    self.window.tintColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     

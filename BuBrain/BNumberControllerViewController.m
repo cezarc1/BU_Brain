@@ -42,7 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"BNumber";
+    self.title = @"B-Number";
     _BNumber.text = nil;
     _attemptedTogetCredentails = NO;
     
@@ -146,8 +146,9 @@
     [self.activityIndicator stopAnimating];
     if ([error code] != -999) {//cancel
         self.alertView = [[UIAlertView alloc] initWithTitle:@"Could not log in!"
-                                                    message:[error domain]
-                                                   delegate:self cancelButtonTitle:@"OK"
+                                                    message:[error localizedDescription]
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
         [self.alertView show];
     }
@@ -173,6 +174,14 @@
     _userNameWasStored = NO;
     _receivedBNumber = NO;
     [[BUBrainClient sharedClient] resetCredentials];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    
+    CGRect screenRect = self.view.bounds;
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    self.activityIndicator.center = CGPointMake(screenWidth / 2, screenHeight / 2);
 }
 
 #pragma mark - UiAlertViewDelegate

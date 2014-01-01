@@ -6,13 +6,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GridScheduleViewController">
             <connections>
-                <outlet property="navigationBar" destination="2tr-yU-zSq" id="RWe-bd-WGG"/>
+                <outlet property="navigationBar" destination="Qha-es-tdJ" id="OG5-mI-4hZ"/>
+                <outlet property="navigationItem" destination="2tr-yU-zSq" id="LhN-9f-fSv"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="webView" destination="wPw-Rt-iS6" id="UAq-8f-rdL"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -22,6 +23,9 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="568" id="eZn-Zw-BKh"/>
                     </constraints>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Schedule - Grid" id="2tr-yU-zSq">
                             <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="CZl-vB-Z2f">

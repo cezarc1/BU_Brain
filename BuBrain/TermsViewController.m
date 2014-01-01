@@ -18,9 +18,10 @@
 
 @implementation TermsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
+
+
+- (id)initWithTypeofTerm: (BUAvailableTerms) typeTerm{
+    self = [super init];
     if (self) {
         _availableTerms = nil;
         _attemptedToGetCredentials = NO;
@@ -28,6 +29,7 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.alertView = nil;
         self.currentTask = nil;
+        _typeofTerm = typeTerm;
     }
     return self;
 }
@@ -43,12 +45,6 @@
     }
     else NSLog(@"failed to load nib");
 
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -73,10 +69,6 @@
     self.alertView = nil;
 }
 
--(void)didCaptureValidCredentialswithUser: (NSString*) userID andPassword: (NSString*) password{
-
-    [self reloadTermsWithUser:userID andPassword:password];
-}
 
 -(void) getTerms{
     
@@ -102,7 +94,26 @@
     BUBrainClient * client = [BUBrainClient sharedClient];
     self.currentTask = [client requestAuthenticationWithUser:user andPassword:password completion:^(NSString *response, NSError *error) {
         if (!error)
-            self.currentTask = [client semestersAvailableWithCompletion:^(NSArray *bNumber, NSError *error) {
+            [self requestTermswithClient:client withUser:user andPassword:password];
+        else {
+            [self.activityIndicator stopAnimating];
+            if ([error code] != -999) {//cancel
+                self.alertView = [[UIAlertView alloc] initWithTitle:@"Could not log in!"
+                                                            message:[error localizedDescription]
+                                                           delegate:self cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+                [self.alertView show];
+                NSLog(@"%@", error);
+            }
+            
+        }
+    }];
+}
+
+-(void)requestTermswithClient: (BUBrainClient*) client withUser: (NSString*) user andPassword: (NSString*) password{
+    switch (_typeofTerm) {
+        case BUAvailableTermsSchedule:{
+            self.currentTask = [client semestersForScheduleAvailableWithCompletion:^(NSArray *bNumber, NSError *error) {
                 if (!error) {
                     BuBrainCredentials *cred = [BuBrainCredentials sharedInstance];
                     [cred StoreUser:user andPassword:password];
@@ -114,26 +125,42 @@
                 }
                 else  NSLog(@"%@", error);
             }];
-        else {
-            [self.activityIndicator stopAnimating];
-            if ([error code] != -999) {//cancel
-                self.alertView = [[UIAlertView alloc] initWithTitle:@"Could not log in!"
-                                                            message:@"Provided credentials are not valid"
-                                                           delegate:self cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-                [self.alertView show];
-            }
-            
-            NSLog(@"%@", error);
-            
         }
-    }];
+            break;
+        case BUAvailableTermsGrade:{
+            self.currentTask = [client semestersForGradesAvailableWithCompletion:^(NSArray *bNumber, NSError *error) {
+                if (!error) {
+                    BuBrainCredentials *cred = [BuBrainCredentials sharedInstance];
+                    [cred StoreUser:user andPassword:password];
+                    [self setAvailableTerms:bNumber];
+                    [self.activityIndicator stopAnimating];
+                    self.tableView.scrollEnabled = YES;
+                    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                    [self.tableView reloadData];
+                }
+                else  NSLog(@"%@", error);
+            }];
+        }
+            break;
+    }
+
+
+
+
 }
-#pragma mark - UiAlertViewDelegate
+
+#pragma -mark CaptureCredentialsDelegate
+
+-(void)didCaptureValidCredentialswithUser: (NSString*) userID andPassword: (NSString*) password{
+    
+    [self reloadTermsWithUser:userID andPassword:password];
+}
+
 -(void) didCancelCaptureCredentials{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - UiAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -172,7 +199,7 @@
     OGElement *ele = _availableTerms[indexPath.row+1];
     cell.textLabel.textColor = UIColorFromRGB(0x006221);
     cell.textLabel.text =  ele.text;
-    cell.textLabel.font = [UIFont systemFontOfSize:18.0];
+    cell.textLabel.font = [UIFont systemFontOfSize:21.0];
     
     return cell;
 }
@@ -190,13 +217,17 @@
     
     NSRange accessTokenRange = [match rangeAtIndex:0];
     NSString *value = [ele.html substringWithRange:accessTokenRange];
+ 
+    if (_typeofTerm == BUAvailableTermsSchedule) {
+        ScheduleTableViewController *cc = [[ScheduleTableViewController alloc] initWithTerm:value andTitle:ele.text];
+        [self.navigationController pushViewController:cc animated:YES];
+    }
+    else if (_typeofTerm == BUAvailableTermsGrade) {
+        GradesViewController *st = [[GradesViewController alloc] initWithSemester:value andTitle:ele.text];
+        [self.navigationController pushViewController:st animated:YES];
+    }
+
     
-    //ScheduleController *sc = [[ScheduleController alloc] initWithTerm:value andTitle:ele.text];
-    
-    //[self.navigationController pushViewController:sc animated:YES];
-    
-    ScheduleTableViewController *cc =[[ScheduleTableViewController alloc] initWithTerm:value andTitle:ele.text];
-    [self.navigationController pushViewController:cc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,55 +248,13 @@
     return [UIView new];
 
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    
+    CGRect screenRect = self.view.bounds;
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    self.activityIndicator.center = CGPointMake(screenWidth / 2, screenHeight / 2);
 }
 
- */
 
 @end

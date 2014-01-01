@@ -53,12 +53,12 @@
 }
 
 - (void) setTaskWillPerformHTTPSRedirectionBlock:(NSURLRequest *(^)(NSURLSession *, NSURLSessionTask *, NSURLResponse *, NSURLRequest *))block{
-    NSLog(@"Here");
+   
 }
 
 
 -(BOOL) areCredentialsStored{
-    //NSLog(@"%@: %@", _username, _password);
+ 
     if (_username && _password)
         return YES;
     else
@@ -86,6 +86,7 @@
                                          if ([self isUserAuthenticatedfor:httpResponse]) {
                                              [self setUsername:user];//Storing user & password for future calls
                                              [self setPassword:password];
+                                             [[BuBrainCredentials sharedInstance] StoreUser:user andPassword:password];
                                              NSString * stringResponse = [NSString stringWithUTF8String:[responseObject bytes]];
                                              completion(stringResponse, nil);
                                          }
@@ -122,7 +123,6 @@
     //NSLog(@"%@", cookie);
     if( ! [cookie  isEqualToString:@"SESSID=;expires=Mon, 01-Jan-1990 08:00:00 GMT"]){
         [self.requestSerializer setValue:cookie forHTTPHeaderField:@"Cookie"];
-        
         return YES;
     }
     else {
@@ -168,10 +168,11 @@
 
 }
 
--(NSURLSessionDataTask *) semestersAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion{
+-(NSURLSessionDataTask *) semestersForScheduleAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion{
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+    // /banner/bwskogrd.P_ViewTermGrde
+    // /banner/bwskfshd.P_CrseSchdDetl
     NSURLSessionDataTask *task = [ self GET:@"/banner/bwskfshd.P_CrseSchdDetl"
                                 parameters:Nil
                                    success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -195,6 +196,35 @@
                                        
     return task;
 }
+-(NSURLSessionDataTask *) semestersForGradesAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion{
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    // /banner/bwskogrd.P_ViewTermGrde
+    // /banner/bwskfshd.P_CrseSchdDetl
+    NSURLSessionDataTask *task = [ self GET:@"/banner/bwskogrd.P_ViewTermGrde"
+                                 parameters:Nil
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                        NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
+                                        if([self isUserAuthenticatedfor:httpResponse]){
+                                            NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
+                                            NSArray *terms = [self parseDocumentForSemesterIDwithString:responseString];
+                                            if (!terms) {
+                                                NSError * error = [NSError errorWithDomain:@"Could not Parse Terms" code:4 userInfo:nil];
+                                                completion(nil,error);
+                                            }
+                                            else completion(terms, nil);
+                                            
+                                        }
+                                    }
+                                    failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                        completion(nil, error);
+                                    }];
+    
+    return task;
+}
+
 -(NSURLSessionDataTask *) scheduleForSemester:(NSString *) semester andCompletion:(void (^)(NSString* classes, NSError *error) )completion{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSURLSessionDataTask *task = [self POST:@"/banner/bwskfshd.P_CrseSchdDetl"
@@ -242,7 +272,7 @@
                                        NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
                                        if([self isUserAuthenticatedfor:httpResponse]){
                                            NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
-                                           completion([self cleanGridSemester:responseString], nil);
+                                           completion([self cleanHtmlPage:responseString], nil);
                                        }
                                        else{
                                            NSError * error = [NSError errorWithDomain:@"Not Authorized" code:2 userInfo:nil];
@@ -258,11 +288,64 @@
     
 }
 
--(NSString *)cleanGridSemester:(NSString *) responseHTML{
+-(NSString *)cleanHtmlPage:(NSString *) responseHTML{
     OGNode *data = [ObjectiveGumbo parseDocumentWithString: responseHTML];
     OGElement *mainLabel = [[data elementsWithClass:@"pagebodydiv"] objectAtIndex:0];
     return [NSString stringWithFormat:@"<link type='text/css' href='/css/web_defaultapp.css' rel='stylesheet'></link> %@",
                                     [mainLabel html]];
+}
+
+-(NSURLSessionDataTask *) getUndergradTranscriptWithCompletion:(void (^)(NSString* responseHTML, NSError *error) )completion{
+    ///banner/bwskotrn.P_ViewTran
+    //levl=UG&tprt=UOFF
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSURLSessionDataTask *task =[self POST:@"/banner/bwskotrn.P_ViewTran"
+                                parameters:@{@"levl": @"",
+                                             @"tprt": @"UOFF"}
+                                   success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
+                                       if([self isUserAuthenticatedfor:httpResponse]){
+                                           NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
+                                           completion([self cleanHtmlPage:responseString], nil);
+                                           
+                                       }
+                                       else{
+                                           NSError * error = [NSError errorWithDomain:@"Not Authorized" code:2 userInfo:nil];
+                                           completion(nil, error);
+                                       }
+                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSLog(@"header: %@", [[task originalRequest]allHTTPHeaderFields]);
+                                       completion(nil, error);
+                                   }];
+    return task;
+}
+
+-(NSURLSessionDataTask *) getGradesforSemester:(NSString*) semester WithCompletion:(void (^)(NSString* responseHTML, NSError *error) )completion{
+    // /banner/bwskogrd.P_ViewGrde
+    // term_in=201390
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSURLSessionDataTask *task =[self POST:@"/banner/bwskogrd.P_ViewGrde"
+                                parameters:@{@"term_in": semester}
+                                   success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *) task.response;
+                                       if([self isUserAuthenticatedfor:httpResponse]){
+                                           NSString *responseString = [NSString stringWithUTF8String:[responseObject bytes]];
+                                           completion([self cleanHtmlPage:responseString], nil);
+                                           
+                                       }
+                                       else{
+                                           NSError * error = [NSError errorWithDomain:@"Not Authorized" code:2 userInfo:nil];
+                                           completion(nil, error);
+                                       }
+                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                       NSLog(@"header: %@", [[task originalRequest]allHTTPHeaderFields]);
+                                       completion(nil, error);
+                                   }];
+    return task;
 }
 
 

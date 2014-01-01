@@ -21,7 +21,6 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"BU Brain";
-        self.tableView.scrollEnabled = NO;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return self;
@@ -31,7 +30,7 @@
 {
     [super viewDidLoad];
     [self checkRedirect];
-    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     UINib *cellNIB = [UINib nibWithNibName:@"TermCell" bundle:nil];
     if (cellNIB){
         [self.tableView registerNib:cellNIB forCellReuseIdentifier:REUSE_IDENTIFIER];
@@ -67,7 +66,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 3;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -79,18 +78,26 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Get B-Number";
+            cell.textLabel.text = @"B-Number";
             break;
             
         case 1:
-            cell.textLabel.text = @"Get Schedule";
+            cell.textLabel.text = @"Schedule";
             break;
             
         case 2:
+            cell.textLabel.text = @"Grades";
+            break;
+            
+        case 3:
+            cell.textLabel.text = @"Transcript";
+            break;
+            
+        case 4:
             cell.textLabel.text = @"Settings";
             break;
     }
-    cell.textLabel.font = [UIFont systemFontOfSize:18.0];
+    cell.textLabel.font = [UIFont systemFontOfSize:21.0];
     cell.textLabel.textColor = UIColorFromRGB(0x006221);
     return cell;
 }
@@ -107,16 +114,25 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    if (indexPath.row == 0) {
+    
+    if (indexPath.row == 0) {//Get B-Number
         BNumberControllerViewController *bnc = [[BNumberControllerViewController alloc] init];
         [self.navigationController pushViewController:bnc animated:YES];
     }
-    else if(indexPath.row == 1){
-        TermsViewController *tvc = [[TermsViewController alloc] init];
+    else if(indexPath.row == 1){//Get Schedule
+        TermsViewController *tvc = [[TermsViewController alloc]initWithTypeofTerm:BUAvailableTermsSchedule];
         [self.navigationController pushViewController:tvc animated:YES];
     }
-    
-    else if ( indexPath.row == 2){
+    else if(indexPath.row == 2){//Get Grades
+        TermsViewController *tvc = [[TermsViewController alloc]initWithTypeofTerm:BUAvailableTermsGrade];
+        [self.navigationController pushViewController:tvc animated:YES];
+    }
+    else if(indexPath.row == 3){//Get Transcript
+        
+        TranscriptViewController *tvc = [[TranscriptViewController alloc] init];
+        [self.navigationController pushViewController:tvc animated:YES];
+    }
+    else if ( indexPath.row == 4){//Settings
         SettingsViewController *svc = [[SettingsViewController alloc] init];
         [self.navigationController pushViewController:svc animated:YES];
     }

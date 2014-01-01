@@ -31,10 +31,8 @@ static BOOL doesntHaveClasses;
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
         self.tableView.scrollEnabled = NO;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
-                                                                                               target:self
-                                                                                               action:@selector(showGridView)];
-        NSLog(@"Current Term: %@", term);
+
+        //NSLog(@"Current Term: %@", term);
         
     }
     return self;
@@ -90,7 +88,6 @@ static BOOL doesntHaveClasses;
                                                    if(!error){
                                                        [self parseScheduleAndUpdateTable:classes];
                                                        [self.activityIndicator stopAnimating];
-
                                                    }
                                                    
                                                }];
@@ -192,6 +189,11 @@ static BOOL doesntHaveClasses;
 
 //parses and updates table
 - (void)parseScheduleAndUpdateTable: (NSString *) schedule{
+    
+    //Add button for Grid View Controller
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                                           target:self
+                                                                                           action:@selector(showGridView)];
 
     OGNode *data =  [ObjectiveGumbo parseDocumentWithString:schedule];
     NSArray * elements = [data elementsWithClass:@"pagebodydiv"];
@@ -267,22 +269,14 @@ static BOOL doesntHaveClasses;
     
 }
 
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-
-    // Pass the selected object to the new view controller.
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    CGRect screenRect = self.view.bounds;
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    self.activityIndicator.center = CGPointMake(screenWidth / 2, screenHeight / 2);
 }
- 
- */
+
+
 
 @end

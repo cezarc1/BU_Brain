@@ -12,6 +12,7 @@
 #import <ObjectiveGumbo.h>
 #import "BNumberControllerViewController.h"
 #import "RedirectDetector.h"
+#import "BuBrainCredentials.h"
 
 
 @interface BUBrainClient : AFHTTPSessionManager 
@@ -33,11 +34,16 @@
 -(NSURLSessionDataTask *) requestBNumberWithCompletion:(void (^)(NSString * bNumber, NSError *error) )completion;
 
 
--(NSURLSessionDataTask *) semestersAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion;
+-(NSURLSessionDataTask *) semestersForScheduleAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion;
+
+-(NSURLSessionDataTask *) semestersForGradesAvailableWithCompletion:(void (^)(NSArray* bNumber, NSError *error) )completion;
 
 -(NSURLSessionDataTask *) scheduleForSemester:(NSString *) semester andCompletion:(void (^)(NSString* classes, NSError *error) )completion;
 
 -(NSURLSessionDataTask *) scheduleGridForSemester:(NSString *) semester andCompletion:(void (^)(NSString* responseHTML, NSError *error) ) completion;
 
+-(NSURLSessionDataTask *) getUndergradTranscriptWithCompletion:(void (^)(NSString* responseHTML, NSError *error) )completion;
+
+-(NSURLSessionDataTask *) getGradesforSemester:(NSString*) semester WithCompletion:(void (^)(NSString* responseHTML, NSError *error) )completion;
 
 @end

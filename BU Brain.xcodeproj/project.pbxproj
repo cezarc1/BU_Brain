@@ -26,8 +26,11 @@
 		F71E18B7182E41B50059EFDD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71E18B5182E41B50059EFDD /* SettingsViewController.xib */; };
 		F7374C4D186FEA5600881136 /* GridScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7374C4B186FEA5600881136 /* GridScheduleViewController.m */; };
 		F7374C4E186FEA5600881136 /* GridScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */; };
+		F7374C55187119B100881136 /* TranscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7374C53187119B100881136 /* TranscriptViewController.m */; };
+		F7374C56187119B100881136 /* TranscriptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7374C54187119B100881136 /* TranscriptViewController.xib */; };
 		F7445DCD182DBFE3007316C6 /* ScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */; };
 		F7445DCE182DBFE3007316C6 /* ScheduleTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7445DCC182DBFE3007316C6 /* ScheduleTableViewController.xib */; };
+		F766B6C21872A82C0018ADC0 /* GradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F766B6C11872A82C0018ADC0 /* GradesViewController.m */; };
 		F77E2D7D176EA1D7007A5678 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77E2D7C176EA1D7007A5678 /* Security.framework */; };
 		F78D4146181362210080D5EB /* mainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D4144181362210080D5EB /* mainMenuViewController.m */; };
 		F78D4147181362210080D5EB /* mainMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78D4145181362210080D5EB /* mainMenuViewController.xib */; };
@@ -82,13 +85,18 @@
 		F71E18B3182E41B50059EFDD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = BuBrain/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		F71E18B4182E41B50059EFDD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = BuBrain/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
 		F71E18B5182E41B50059EFDD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = BuBrain/UI/SettingsViewController.xib; sourceTree = SOURCE_ROOT; };
-		F7374C4A186FEA5600881136 /* GridScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScheduleViewController.h; sourceTree = SOURCE_ROOT; };
-		F7374C4B186FEA5600881136 /* GridScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScheduleViewController.m; sourceTree = SOURCE_ROOT; };
-		F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GridScheduleViewController.xib; sourceTree = SOURCE_ROOT; };
+		F7374C4A186FEA5600881136 /* GridScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridScheduleViewController.h; path = BuBrain/GridScheduleViewController.h; sourceTree = SOURCE_ROOT; };
+		F7374C4B186FEA5600881136 /* GridScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridScheduleViewController.m; path = BuBrain/GridScheduleViewController.m; sourceTree = SOURCE_ROOT; };
+		F7374C4C186FEA5600881136 /* GridScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GridScheduleViewController.xib; path = BuBrain/GridScheduleViewController.xib; sourceTree = SOURCE_ROOT; };
+		F7374C52187119B100881136 /* TranscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranscriptViewController.h; path = BuBrain/TranscriptViewController.h; sourceTree = SOURCE_ROOT; };
+		F7374C53187119B100881136 /* TranscriptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TranscriptViewController.m; path = BuBrain/TranscriptViewController.m; sourceTree = SOURCE_ROOT; };
+		F7374C54187119B100881136 /* TranscriptViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TranscriptViewController.xib; path = BuBrain/TranscriptViewController.xib; sourceTree = SOURCE_ROOT; };
 		F7445DC7182DB9EC007316C6 /* ClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassCell.h; path = BuBrain/ClassCell.h; sourceTree = SOURCE_ROOT; };
 		F7445DCA182DBFE3007316C6 /* ScheduleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScheduleTableViewController.h; path = BuBrain/ScheduleTableViewController.h; sourceTree = SOURCE_ROOT; };
 		F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScheduleTableViewController.m; path = BuBrain/ScheduleTableViewController.m; sourceTree = SOURCE_ROOT; };
 		F7445DCC182DBFE3007316C6 /* ScheduleTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ScheduleTableViewController.xib; path = BuBrain/UI/ScheduleTableViewController.xib; sourceTree = SOURCE_ROOT; };
+		F766B6C01872A82C0018ADC0 /* GradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradesViewController.h; path = BuBrain/GradesViewController.h; sourceTree = SOURCE_ROOT; };
+		F766B6C11872A82C0018ADC0 /* GradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradesViewController.m; path = BuBrain/GradesViewController.m; sourceTree = SOURCE_ROOT; };
 		F77E2D7C176EA1D7007A5678 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F78D4143181362210080D5EB /* mainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainMenuViewController.h; path = BuBrain/mainMenuViewController.h; sourceTree = SOURCE_ROOT; };
 		F78D4144181362210080D5EB /* mainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mainMenuViewController.m; path = BuBrain/mainMenuViewController.m; sourceTree = SOURCE_ROOT; };
@@ -144,11 +152,11 @@
 		F71E18B8182E760B0059EFDD /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F7374C4F1870169300881136 /* Web */,
 				F7445DC7182DB9EC007316C6 /* ClassCell.h */,
 				F71E18B1182E30EA0059EFDD /* ClassCell.m */,
 				F71E18AC182E18900059EFDD /* ClassInfo.h */,
 				F71E18AD182E18900059EFDD /* ClassInfo.m */,
+				F7374C54187119B100881136 /* TranscriptViewController.xib */,
 				F71E18AF182E2E570059EFDD /* TermCell.xib */,
 				A935477B1807AE3D00705CF1 /* CaptureCredentialsController.xib */,
 				A935477C1807AE3D00705CF1 /* BNumberControllerViewController.xib */,
@@ -159,13 +167,6 @@
 				F78D4145181362210080D5EB /* mainMenuViewController.xib */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		F7374C4F1870169300881136 /* Web */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Web;
 			sourceTree = "<group>";
 		};
 		F78D4134181357D30080D5EB /* BuBrainClient */ = {
@@ -235,6 +236,8 @@
 				F7445DCB182DBFE3007316C6 /* ScheduleTableViewController.m */,
 				F7374C4A186FEA5600881136 /* GridScheduleViewController.h */,
 				F7374C4B186FEA5600881136 /* GridScheduleViewController.m */,
+				F7374C52187119B100881136 /* TranscriptViewController.h */,
+				F7374C53187119B100881136 /* TranscriptViewController.m */,
 				F78D4143181362210080D5EB /* mainMenuViewController.h */,
 				F78D4144181362210080D5EB /* mainMenuViewController.m */,
 				F71E18B3182E41B50059EFDD /* SettingsViewController.h */,
@@ -245,6 +248,8 @@
 				A935477A1807AE3D00705CF1 /* CaptureCredentialsController.m */,
 				F78D414A181483260080D5EB /* TermsViewController.h */,
 				F78D414B181483260080D5EB /* TermsViewController.m */,
+				F766B6C01872A82C0018ADC0 /* GradesViewController.h */,
+				F766B6C11872A82C0018ADC0 /* GradesViewController.m */,
 				A935477D1807AE3D00705CF1 /* Images.xcassets */,
 				A935477E1807AE3D00705CF1 /* en.lproj */,
 				A93547811807AE3D00705CF1 /* AppDelegate.h */,
@@ -351,6 +356,7 @@
 				A93547891807AE3D00705CF1 /* CaptureCredentialsController.xib in Resources */,
 				A935478A1807AE3D00705CF1 /* BNumberControllerViewController.xib in Resources */,
 				F78D4147181362210080D5EB /* mainMenuViewController.xib in Resources */,
+				F7374C56187119B100881136 /* TranscriptViewController.xib in Resources */,
 				F71E18B0182E2E570059EFDD /* TermCell.xib in Resources */,
 				F7374C4E186FEA5600881136 /* GridScheduleViewController.xib in Resources */,
 				F71E18AB182E00090059EFDD /* ClassCell.xib in Resources */,
@@ -406,8 +412,10 @@
 			files = (
 				F78D414C181483260080D5EB /* TermsViewController.m in Sources */,
 				F71E18AE182E18900059EFDD /* ClassInfo.m in Sources */,
+				F766B6C21872A82C0018ADC0 /* GradesViewController.m in Sources */,
 				A93547841807AE3D00705CF1 /* BUBrainClient.m in Sources */,
 				A93547851807AE3D00705CF1 /* BNumberControllerViewController.m in Sources */,
+				F7374C55187119B100881136 /* TranscriptViewController.m in Sources */,
 				A93547881807AE3D00705CF1 /* CaptureCredentialsController.m in Sources */,
 				F78D4152181493F60080D5EB /* BuBrainCredentials.m in Sources */,
 				A93547721807ADF600705CF1 /* SSKeychainQuery.m in Sources */,

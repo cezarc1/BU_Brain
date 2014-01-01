@@ -11,6 +11,7 @@
 #import "TermsViewController.h"
 #import "SettingsViewController.h"
 #import "RedirectDetector.h"
+#import "TranscriptViewController.h"
 
 @interface mainMenuViewController : UITableViewController
 
